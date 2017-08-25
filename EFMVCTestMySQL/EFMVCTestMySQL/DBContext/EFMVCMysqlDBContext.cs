@@ -10,14 +10,14 @@ namespace EFMVCTestMySQL.DBContext
 {
     // Code-Based Configuration and Dependency resolution
     [DbConfigurationType(typeof(MySqlEFConfiguration))]
-    public class EFMVCMysqlDBContext : DbContext
+    public class EFMVCMySqlDBContext : DbContext
     {
         //Add your Dbsets here
         public DbSet<Customer> Customers { get; set; }
 
         public DbSet<MembershipType> MembershipTypes { get; set; }
 
-        public EFMVCMysqlDBContext()
+        public EFMVCMySqlDBContext()
               
            //Reference the name of your connection string
             : base("TestSamuelMVCEFDB")
