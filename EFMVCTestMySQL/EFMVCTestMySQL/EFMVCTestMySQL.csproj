@@ -215,6 +215,14 @@
     <Compile Include="Migrations\201708251556135_InitialModel.Designer.cs">
       <DependentUpon>201708251556135_InitialModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708252200351_AddCustomControllerAndView.cs" />
+    <Compile Include="Migrations\201708252200351_AddCustomControllerAndView.Designer.cs">
+      <DependentUpon>201708252200351_AddCustomControllerAndView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708252205423_PopulateMembershipTypes.cs" />
+    <Compile Include="Migrations\201708252205423_PopulateMembershipTypes.Designer.cs">
+      <DependentUpon>201708252205423_PopulateMembershipTypes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -305,6 +313,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708251556135_InitialModel.resx">
       <DependentUpon>201708251556135_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708252200351_AddCustomControllerAndView.resx">
+      <DependentUpon>201708252200351_AddCustomControllerAndView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708252205423_PopulateMembershipTypes.resx">
+      <DependentUpon>201708252205423_PopulateMembershipTypes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
