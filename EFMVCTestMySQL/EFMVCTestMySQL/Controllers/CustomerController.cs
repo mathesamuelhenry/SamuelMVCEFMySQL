@@ -32,7 +32,7 @@ namespace EFMVCTestMySQL.Controllers
 
         public ActionResult Details(int id)
         {
-            var customer = _dbContext.Customers.FirstOrDefault(c => c.Id == id);
+            var customer = _dbContext.Customers.Include(c => c.MembershipType).FirstOrDefault(c => c.Id == id);
             
             if (customer == null)
                 return HttpNotFound();
