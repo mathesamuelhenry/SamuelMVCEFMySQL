@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace EFMVCTestMySQL.Controllers
 {
@@ -25,15 +26,19 @@ namespace EFMVCTestMySQL.Controllers
         // GET: Movie
         public ViewResult Index()
         {
-            /*var movieList = new List<Movie>
-            {
-                new Movie { Id = 1, Name = "Hangover" },
-                new Movie { Id = 2, Name = "Die Hard" }
-            };*/
-
-            var movieList = _dbContext.Movies;
+            var movieList = _dbContext.Movies.Include(m => m.Genre).ToList();
 
             return View(movieList);
+        }
+
+        public ActionResult Details(int id)
+        {
+            var movie = _dbContext.Movies.Include(m => m.Genre).SingleOrDefault(c => c.Id == id);
+
+            if (movie == null)
+                return HttpNotFound();
+
+            return View(movie);
         }
     }
 }

@@ -19,6 +19,8 @@ namespace EFMVCTestMySQL.DBContext
 
         public DbSet<Movie> Movies { get; set; }
 
+        public DbSet<Genre> Genres { get; set; }
+
         public EFMVCMySqlDBContext()
               
            //Reference the name of your connection string
