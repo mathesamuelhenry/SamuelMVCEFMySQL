@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using EFMVCTestMySQL.ViewModels;
 
 namespace EFMVCTestMySQL.Controllers
 {
@@ -39,6 +40,48 @@ namespace EFMVCTestMySQL.Controllers
                 return HttpNotFound();
 
             return View(movie);
+        }
+
+        public ActionResult New()
+        {
+            var movieViewModel = new MovieFormViewModel
+            {
+                Genres = _dbContext.Genres.ToList()
+            };
+
+            return View("MovieForm", movieViewModel);
+        }
+
+        public ActionResult Save(Movie movie)
+        {
+            if (movie.Id == 0)
+                _dbContext.Movies.Add(movie);
+            else
+            {
+                var movieFromDB = _dbContext.Movies.Single(m => m.Id == movie.Id);
+
+                movieFromDB.Name = movie.Name;
+                movieFromDB.ReleaseDate = movie.ReleaseDate;
+                movieFromDB.GenreId = movie.GenreId;
+                movieFromDB.NumberInStock = movie.NumberInStock;
+            }
+
+            _dbContext.SaveChanges();
+
+            return RedirectToAction("Index", "Movie");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var movieInDB = _dbContext.Movies.Include(g => g.Genre).Single(m => m.Id == id);
+
+            var movieViewModel = new MovieFormViewModel
+            {
+                Movie = movieInDB,
+                Genres = _dbContext.Genres
+            };
+
+            return View("MovieForm", movieViewModel);
         }
     }
 }
