@@ -30,6 +30,7 @@ namespace EFMVCTestMySQL.Controllers
 
             var viewModel = new CustomerFormViewModel
             {
+                Customer = new Customer(),
                 MembershipTypes = membershipTypes
             };
 
@@ -38,8 +39,20 @@ namespace EFMVCTestMySQL.Controllers
 
         // NewCustomerViewModel - model binding in action
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new CustomerFormViewModel
+                {
+                    Customer = customer,
+                    MembershipTypes = _dbContext.MembershipTypes.ToList()
+                };
+
+                return View("CustomerForm", viewModel);
+            }
+
             if (customer.Id == 0)
                 _dbContext.Customers.Add(customer);
             else

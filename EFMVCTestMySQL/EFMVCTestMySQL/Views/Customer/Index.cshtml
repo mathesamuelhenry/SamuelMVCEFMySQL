@@ -5,6 +5,10 @@
 
 <h2>Customers</h2>
 
+<p>
+    @Html.ActionLink("New", "New", "Customer", null, new { @class = "btn btn-primary" })
+</p>
+
 @if (!Model.Any())
 {
     <p>No Customers</p>
@@ -15,10 +19,12 @@ else
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Date Of Birth</th>
                 <th>Membership Type</th>
                 <th>SignUp Fee</th>
                 <th>Discount Rate</th>
                 <th>Duration In Months</th>
+                <th>Is Subscribed</th>
             </tr>
         </thead>
         <tbody>
@@ -27,9 +33,19 @@ else
                 <tr>
                     <td>@Html.ActionLink(customer.Name, "Edit", "Customer", new { id = customer.Id }, null)</td>
                     <td>@customer.MembershipType.Name</td>
+                    @if (customer.BirthDate.HasValue)
+                    {
+                        <td>@customer.BirthDate.Value.ToLongDateString()</td>
+
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
                     <td>@customer.MembershipType.SignUpFee</td>
                     <td>@customer.MembershipType.DiscountRate</td>
                     <td>@customer.MembershipType.DurationInMonths</td>
+                    <td>@customer.IsSubscribedToNewsLetter</td>
                 </tr>
             }
         </tbody>

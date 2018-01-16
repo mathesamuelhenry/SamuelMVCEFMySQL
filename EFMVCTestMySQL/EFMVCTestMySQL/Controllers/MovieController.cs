@@ -52,6 +52,7 @@ namespace EFMVCTestMySQL.Controllers
             return View("MovieForm", movieViewModel);
         }
 
+        [HttpPost]
         public ActionResult Save(Movie movie)
         {
             if (movie.Id == 0)
