@@ -46,6 +46,7 @@ namespace EFMVCTestMySQL.Controllers
         {
             var movieViewModel = new MovieFormViewModel
             {
+                Movie = new Movie(),
                 Genres = _dbContext.Genres.ToList()
             };
 
@@ -53,8 +54,20 @@ namespace EFMVCTestMySQL.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Movie movie)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new MovieFormViewModel
+                {
+                    Movie = movie,
+                    Genres = _dbContext.Genres.ToList()
+                };
+
+                return View("MovieForm", viewModel);
+            }
+
             if (movie.Id == 0)
                 _dbContext.Movies.Add(movie);
             else
