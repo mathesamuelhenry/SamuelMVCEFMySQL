@@ -46,7 +46,6 @@ namespace EFMVCTestMySQL.Controllers
         {
             var movieViewModel = new MovieFormViewModel
             {
-                Movie = new Movie(),
                 Genres = _dbContext.Genres.ToList()
             };
 
@@ -59,9 +58,8 @@ namespace EFMVCTestMySQL.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var viewModel = new MovieFormViewModel
+                var viewModel = new MovieFormViewModel(movie)
                 {
-                    Movie = movie,
                     Genres = _dbContext.Genres.ToList()
                 };
 
@@ -89,10 +87,9 @@ namespace EFMVCTestMySQL.Controllers
         {
             var movieInDB = _dbContext.Movies.Include(g => g.Genre).Single(m => m.Id == id);
 
-            var movieViewModel = new MovieFormViewModel
+            var movieViewModel = new MovieFormViewModel(movieInDB)
             {
-                Movie = movieInDB,
-                Genres = _dbContext.Genres
+                Genres = _dbContext.Genres.ToList()
             };
 
             return View("MovieForm", movieViewModel);
